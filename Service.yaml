@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: flask_on_k8s
+  labels:
+    name: flask-on-k8s
+spec:
+  type: CluserIP
+  ports:
+    name: py-flask-web
+    port: 8080
+    protocol: TCP
+    targetPort:  py-flask-web
+  selector:
+    py.name: flask-on-k8s
+  
+  
+

@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-on-k8s-py.app.us-west-1a.aws.com
+  annotations:  
+    kubernetes.io/ingress.class: "alb.v1"
+spec:
+  defaultBackend:
+    service:
+      name: flask-on-k8s #give the same name what you provided in the Service.yaml
+      port: 
+        number: 8080
+  

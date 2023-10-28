@@ -1,0 +1,9 @@
+apiVersion: aws.cloud.com/v1alpha1
+kind: AWSNetworkPolicy
+metadata:
+  name: whiteList-flask-on-k8s
+spec:
+  selector:
+    py.name: flask-on-k8s
+  apps_incoming:
+    - app:  aws.cloud.com.dev

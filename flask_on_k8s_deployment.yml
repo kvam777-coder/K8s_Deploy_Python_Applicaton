@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: flask-on-k8s
+  labels:
+    py.name: flask-on-k8s
+
+spec:
+  replicas: 3
+  selector: 
+    matcheLabels:
+      py.name: flask-on-k8s
+    template:
+      metadata:
+        name: flask-on-k8s
+        labels:
+          py.name: flask-on-k8s
+      spec:
+        containers:
+          - image: dockerhub.com/flask-on-k8s/py.flask:$TAG #we can give own repo or any cloud repo
+            name: py.name
+            ports: 
+              - containerPort: 8080
+                name: py-flask-web
+            livenesprobe:         #defining with HTTP request or we can command specific health check too
+              httpGet:
+                path: /
+                port: 8080
+              initialDelaySeconds: 10  # this field tells the kubelet that should wait 10 seconds before doing first probe
+              periodSeconds: 20 # this field tells the kubelet to perform liveness check for every 20 sec
+              timeoutSeconds: 10 # This field tells timeout limit to get webserver repsonse back
+            resources:
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 10m
+                memory: 32Mi
+---
+
+
+
+
+
+
